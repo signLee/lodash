@@ -1,0 +1,271 @@
+api地址：http://lodashjs.com/docs/#_removearray-predicate_identity-thisarg
+
+
+_.fill(array, value, [start=0], [end=array.length])--------------增加
+使用 value 值来填充（也就是替换） array，从start位置开始, 到end位置结束（但不包含end位置） 
+参数
+  1. array (Array): 需要填充的数组.
+  2. value (*): 填充 array 元素的值.
+  3. [start=0] (number): 起始位置（包含）
+  4. [end=array.length] (number): 结束位置（不含）
+例子
+var array = [1, 2, 3];
+
+_.fill(array, 'a');
+console.log(array);
+// => ['a', 'a', 'a']
+
+_.fill(Array(3), 2);
+// => [2, 2, 2]
+
+_.fill([4, 6, 8], '*', 1, 2);
+// => [4, '*', 8]
+
+
+
+
+
+
+_.compact(array)-------------  删除
+创建一个新数组并包含原数组中所有的非假值元素。例如 false、null、 0、""、undefined 和 NaN 都是“假值”。
+EG:
+_.compact([0, 1, false, 2, '', 3]);
+// => [1, 2, 3]
+
+
+
+_.pullAt(array, [indexes])---------------删除
+移除指定索引的数组元素，并返回移除的元素，索引值明确给出或者是索引数组
+参数
+  1. array (Array): 需要修改的数组
+  2. [indexes] (...(number|number[]): 需要移除元素的索引, 数组的索引值或者索引数组.
+var array = [5, 10, 15, 20];
+var evens = _.pullAt(array, 1, 3);
+
+console.log(array);
+// => [5, 15]
+
+console.log(evens);
+// => [10, 20]
+
+
+
+_.remove(array, [predicate=_.identity], [thisArg])-------------------删除
+移除数组 array 中满足 predicate 条件的所有元素 ，返回的是被移除元素数组.
+参数
+  1. array (Array): 需要修改的数组
+  2. [predicate=_.identity] (Function|Object|string): 遍历判断的方法
+  3. [thisArg] (*): 和参数predicate绑定
+var array = [1, 2, 3, 4];
+var evens = _.remove(array, function(n) {
+  return n % 2 == 0;
+});
+
+console.log(array);
+// => [1, 3]
+
+console.log(evens);
+// => [2, 4]
+
+
+_.reject(collection, [predicate=_.identity], [thisArg])-----------------删除
+删除符合条件的数据
+_.reject([1, 2, 3, 4], function(n) {
+  return n % 2 == 0;
+});
+// => [1, 3]
+
+var users = [
+  { 'user': 'barney', 'age': 36, 'active': false },
+  { 'user': 'fred',   'age': 40, 'active': true }
+];
+
+// using the `_.matches` callback shorthand
+_.pluck(_.reject(users, { 'age': 40, 'active': true }), 'user');
+// => ['barney']
+
+// using the `_.matchesProperty` callback shorthand
+_.pluck(_.reject(users, 'active', false), 'user');
+// => ['fred']
+
+// using the `_.property` callback shorthand
+_.pluck(_.reject(users, 'active'), 'user');
+// => ['barney'
+
+
+
+_.prototype.reverse()-----------------修改
+var array = [1, 2, 3];
+
+_(array).reverse().value()
+// => [3, 2, 1]
+
+console.log(array);
+// => [3, 2, 1]
+
+
+
+_.difference(array, [values])---------------查询
+数组去除指定的值
+参数
+  1. array (Array): 需要过滤的数组
+  2. [values] (...Array): 数组需要排除掉的值
+_.difference([1, 2, 3], [4, 2]);
+// => [1, 3]
+_.difference([1, '2', 3], [4, 2]);
+// => [1, "2", 3]
+
+
+
+
+
+
+
+_.indexOf(array, value, [fromIndex=0])----------------- 查询
+参数
+  1. array (Array): 需要查找的数组
+  2. value (*): 需要查找的元素
+  3. [fromIndex=0] (boolean|number): 查询的位置或者true值时对一个已排序的数组进行二分查找.
+返回值
+(number): 返回元素在数组中的索引位置, else -1.
+_.indexOf([1, 2, 1, 2], 2);
+// => 1
+
+// using `fromIndex`
+_.indexOf([1, 2, 1, 2], 2, 2);-------（arr,要找的值，第几个要找的值）
+// => 3
+
+
+
+_.intersection([arrays])--------------------查询
+取出各数组中全等的元素 交集
+_.intersection([1, 2], [4, 2], [2, 1]);
+// => [2]
+
+
+_.pull(array, [values])-----------------------查询
+移除数组array中所有和 values 相等的元素
+参数
+  1. array (Array): 修改的数组
+  2. [values] (...*): 移除的元素
+例子
+var array = [1, 2, 3, 1, 2, 3];
+
+_.pull(array, 2, 3);
+console.log(array);
+// => [1, 1]
+
+
+
+
+
+
+_.take(array, [n=1])----------可用来做分页------------------查询
+从数组的起始位置开始，取n个元素;n默认是1
+参数
+  1. array (Array): 需要查询的数组
+  2. [n=1] (number): 获取的元素个数
+例子
+_.take([1, 2, 3]);
+// => [1]
+
+_.take([1, 2, 3], 2);
+// => [1, 2]
+
+_.take([1, 2, 3], 5);
+// => [1, 2, 3]
+
+_.take([1, 2, 3], 0);
+// => []
+
+_.union([arrays])-----------------查询
+多个数组去重
+例子
+_.union([1, 2], [4, 2], [2, 1]);
+// => [1, 2, 4]
+
+_.uniq(array, [isSorted], [iteratee], [thisArg])--------------查询
+数组去重
+例子
+_.uniq([2, 1, 2]);
+// => [2, 1]
+_.uniq([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+// => [{ 'x': 1 }, { 'x': 2 }]
+
+_.xor([arrays])-----------------------查询
+多个数组求差集
+例子
+_.xor([1, 2], [4, 2]);
+// => [1, 4]
+
+
+
+
+_.filter(collection, [predicate=_.identity], [thisArg])-----------------------查询
+在集合中过滤所需元素
+_.filter([4, 5, 6], function(n) {
+  return n % 2 == 0;
+});
+// => [4, 6]
+
+var users = [
+  { 'user': 'barney', 'age': 36, 'active': true },
+  { 'user': 'fred',   'age': 40, 'active': false }
+];
+
+// using the `_.matches` callback shorthand
+_.pluck(_.filter(users, { 'age': 36, 'active': true }), 'user');
+// => ['barney']
+
+// using the `_.matchesProperty` callback shorthand
+_.pluck(_.filter(users, 'active', false), 'user');
+// => ['fred']
+
+// using the `_.property` callback shorthand
+_.pluck(_.filter(users, 'active'), 'user');
+// => ['barney']
+
+
+
+_.includes(collection, target, [fromIndex=0])------------------查询
+判断数组是否包含所传的值
+_.includes([1, 2, 3], 1);
+// => true
+
+_.includes([1, 2, 3], 1, 2);
+// => false
+
+_.includes({ 'user': 'fred', 'age': 40 }, 'fred');
+// => true
+
+_.includes('pebbles', 'eb');
+// => true
+
+
+_.map(collection, [iteratee=_.identity], [thisArg])------------------------查询
+将集合中的所有元素拿出来执行传入的函数
+例子
+function timesThree(n) {
+  return n * 3;
+}
+
+_.map([1, 2], timesThree);
+// => [3, 6]
+
+_.map({ 'a': 1, 'b': 2 }, timesThree);
+// => [3, 6] (iteration order is not guaranteed)
+
+var users = [
+  { 'user': 'barney' },
+  { 'user': 'fred' }
+];
+
+// using the `_.property` callback shorthand
+_.map(users, 'user');
+// => ['barney', 'fred']
+
+
+
+
+
+
